@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
+    "*.{css,scss,vue}": "stylelint"
   },
   "husky": {
     "hooks": {
@@ -33,7 +33,10 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "husky": "^2.6.0",
     "lint-staged": "^8.2.1",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
     "stylelint": "^10.1.0",
-    "stylelint-config-standard": "^19.0.0"
+    "stylelint-config-standard": "^19.0.0",
+    "stylelint-scss": "^3.13.0"
   }
 }
