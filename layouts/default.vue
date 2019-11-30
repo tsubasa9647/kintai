@@ -7,3 +7,20 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+export default {
+  head () {
+    const { meta } = this.$nuxtI18nSeo()
+    const APP_NAME = this.$t('APP_NAME')
+    const APP_DESCRIPTION = this.$t('APP_DESCRIPTION')
+    return {
+      title: APP_NAME,
+      meta: [
+        { hid: 'description', name: 'description', content: APP_DESCRIPTION },
+        ...meta
+      ]
+    }
+  }
+}
+</script>
