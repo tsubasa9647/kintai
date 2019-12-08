@@ -1,4 +1,12 @@
 {
+  "APP_DESCRIPTION": "勤怠管理システム",
   "APP_NAME": "kintai",
-  "APP_DESCRIPTION": "勤怠管理システム"
+  "HEADER_ACTUAL_WORKING_TIME": "実労働時間",
+  "HEADER_BREAK_TIME": "休憩時間",
+  "HEADER_DATE": "日付",
+  "HEADER_OVERTIME": "残業時間",
+  "HEADER_STANDARD_WORKING_TIME": "所定労働時間",
+  "HEADER_STAYING_TIME": "滞在時間",
+  "HEADER_WORKING_TIME": "労働時間",
+  "TOTAL": "合計"
 }

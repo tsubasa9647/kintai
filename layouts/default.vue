@@ -15,7 +15,7 @@ export default {
     const APP_NAME = this.$t('APP_NAME')
     const APP_DESCRIPTION = this.$t('APP_DESCRIPTION')
     return {
-      title: APP_NAME,
+      title: `${APP_NAME}: ${APP_DESCRIPTION}`,
       meta: [
         { hid: 'description', name: 'description', content: APP_DESCRIPTION },
         ...meta
