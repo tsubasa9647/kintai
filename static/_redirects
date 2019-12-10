@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+https://kintai-app.netlify.com/* https://kintai.munieru.app/:splat 301!
