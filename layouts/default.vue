@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <app-header />
     <v-content>
       <v-container>
         <nuxt />
@@ -9,6 +10,8 @@
 </template>
 
 <script>
+import AppHeader from '~/components/AppHeader'
+
 export default {
   head () {
     const { meta } = this.$nuxtI18nSeo()
@@ -21,6 +24,9 @@ export default {
         ...meta
       ]
     }
+  },
+  components: {
+    AppHeader
   }
 }
 </script>
