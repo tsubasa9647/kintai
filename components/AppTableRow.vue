@@ -7,29 +7,27 @@
       <app-input-time v-model="mutableStayingTime" />
     </td>
     <td>
-      {{ breakTimeDuration | formatDuration }}
+      {{ breakTime }}
     </td>
     <td>
-      {{ actualWorkingTimeDuration | formatDuration }}
+      {{ actualWorkingTime }}
     </td>
     <td>
-      {{ workingTimeDuration | formatDuration }}
+      {{ workingTime }}
     </td>
     <td>
-      {{ standardWorkingTimeDuration | formatDuration }}
+      {{ standardWorkingTime }}
     </td>
     <td>
-      {{ overtimeDuration | formatDuration }}
+      {{ overtime }}
     </td>
   </tr>
 </template>
 
 <script>
-import floorDuration from '~/modules/floorDuration'
+import calcTimes from '~/modules/calcTimes'
 import formatDate from '~/modules/formatDate'
-import formatDuration from '~/modules/formatDuration'
 import isHTMLTime from '~/modules/isHTMLTime'
-import newDurationFromHTMLTime from '~/modules/newDurationFromHTMLTime'
 import AppInputTime from '~/components/AppInputTime'
 
 export default {
@@ -39,9 +37,6 @@ export default {
   filters: {
     formatDate (date) {
       return formatDate(date, 'yyyy/M/d(EEEEE)')
-    },
-    formatDuration (duration) {
-      return duration.isValid ? formatDuration(duration, 'hh:mm') : ''
     }
   },
   props: {
@@ -70,6 +65,14 @@ export default {
     }
   },
   computed: {
+    times () {
+      return calcTimes({
+        stayingTime: this.mutableStayingTime,
+        breakTime: this.breakTime,
+        standardWorkingTime: this.standardWorkingTime,
+        workingTimeUnits: this.workingTimeUnits
+      })
+    },
     mutableStayingTime: {
       get () {
         return this.stayingTime
@@ -79,22 +82,25 @@ export default {
       }
     },
     stayingTimeDuration () {
-      return newDurationFromHTMLTime(this.mutableStayingTime)
+      return this.times.stayingTime.duration
     },
-    breakTimeDuration () {
-      return newDurationFromHTMLTime(this.breakTime)
+    actualWorkingTime () {
+      return this.times.actualWorkingTime.value
     },
     actualWorkingTimeDuration () {
-      return this.stayingTimeDuration.minus(this.breakTimeDuration)
+      return this.times.actualWorkingTime.duration
+    },
+    workingTime () {
+      return this.times.workingTime.value
     },
     workingTimeDuration () {
-      return floorDuration(this.actualWorkingTimeDuration, this.workingTimeUnits)
+      return this.times.workingTime.duration
     },
-    standardWorkingTimeDuration () {
-      return newDurationFromHTMLTime(this.standardWorkingTime)
+    overtime () {
+      return this.times.overtime.value
     },
     overtimeDuration () {
-      return this.workingTimeDuration.minus(this.standardWorkingTimeDuration)
+      return this.times.overtime.duration
     }
   },
   watch: {
