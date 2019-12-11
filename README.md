@@ -1,22 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/538fb4b0-ca2b-43b7-9846-76682bacf67e/deploy-status)](https://app.netlify.com/sites/kintai-app/deploys)
+
 # kintai
-
-> Attendance management system
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ npm run install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Attendance management system
