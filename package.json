@@ -36,6 +36,7 @@
     "lint-staged": "^8.2.1",
     "luxon": "^1.21.3",
     "node-sass": "^4.13.0",
+    "nuxt-client-init-module": "^0.1.7",
     "nuxt-i18n": "^6.4.0",
     "sass-loader": "^8.0.0",
     "stylelint": "^10.1.0",
