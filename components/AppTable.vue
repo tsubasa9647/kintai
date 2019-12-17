@@ -15,12 +15,11 @@
           <app-table-row
             :date="record.date"
             :staying-time.sync="record.stayingTime"
-            :staying-time-duration.sync="record.stayingTimeDuration"
             :break-time="record.breakTime"
-            :actual-working-time-duration.sync="record.actualWorkingTimeDuration"
-            :working-time-duration.sync="record.workingTimeDuration"
+            :actual-working-time.sync="record.actualWorkingTime"
+            :working-time.sync="record.workingTime"
             :standard-working-time="record.standardWorkingTime"
-            :overtime-duration.sync="record.overtimeDuration"
+            :overtime.sync="record.overtime"
             :working-time-units="workingTimeUnits"
           />
         </template>
@@ -52,6 +51,7 @@
 
 <script>
 import formatDuration from '~/modules/formatDuration'
+import parseDuration from '~/modules/parseDuration'
 import sumDurations from '~/modules/sumDurations'
 import AppTableRow from '~/components/AppTableRow'
 
@@ -110,22 +110,23 @@ export default {
   },
   computed: {
     stayingTimeDuration () {
-      return this.sumDurations('stayingTimeDuration')
+      return this.sumDurations('stayingTime')
     },
     actualWorkingTimeDuration () {
-      return this.sumDurations('actualWorkingTimeDuration')
+      return this.sumDurations('actualWorkingTime')
     },
     workingTimeDuration () {
-      return this.sumDurations('workingTimeDuration')
+      return this.sumDurations('workingTime')
     },
     overtimeDuration () {
-      return this.sumDurations('overtimeDuration')
+      return this.sumDurations('overtime')
     }
   },
   methods: {
     sumDurations (key) {
       const durations = this.records
         .map(record => record[key])
+        .map(parseDuration)
         .filter(duration => duration.isValid)
       return sumDurations(...durations)
     }

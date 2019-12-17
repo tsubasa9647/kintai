@@ -65,14 +65,6 @@ export default {
     }
   },
   computed: {
-    times () {
-      return calcTimes({
-        stayingTime: this.mutableStayingTime,
-        breakTime: this.breakTime,
-        standardWorkingTime: this.standardWorkingTime,
-        workingTimeUnits: this.workingTimeUnits
-      })
-    },
     mutableStayingTime: {
       get () {
         return this.stayingTime
@@ -81,40 +73,33 @@ export default {
         this.$emit('update:staying-time', stayingTime)
       }
     },
-    stayingTimeDuration () {
-      return this.times.stayingTime.duration
+    time () {
+      return calcTimes({
+        stayingTime: this.mutableStayingTime,
+        breakTime: this.breakTime,
+        standardWorkingTime: this.standardWorkingTime,
+        workingTimeUnits: this.workingTimeUnits
+      })
     },
     actualWorkingTime () {
-      return this.times.actualWorkingTime.value
-    },
-    actualWorkingTimeDuration () {
-      return this.times.actualWorkingTime.duration
+      return this.time.actualWorkingTime
     },
     workingTime () {
-      return this.times.workingTime.value
-    },
-    workingTimeDuration () {
-      return this.times.workingTime.duration
+      return this.time.workingTime
     },
     overtime () {
-      return this.times.overtime.value
-    },
-    overtimeDuration () {
-      return this.times.overtime.duration
+      return this.time.overtime
     }
   },
   watch: {
-    stayingTimeDuration (stayingTimeDuration) {
-      this.$emit('update:staying-time-duration', stayingTimeDuration)
+    actualWorkingTime (actualWorkingTime) {
+      this.$emit('update:actual-working-time', actualWorkingTime)
     },
-    actualWorkingTimeDuration (actualWorkingTimeDuration) {
-      this.$emit('update:actual-working-time-duration', actualWorkingTimeDuration)
+    workingTime (workingTime) {
+      this.$emit('update:working-time', workingTime)
     },
-    workingTimeDuration (workingTimeDuration) {
-      this.$emit('update:working-time-duration', workingTimeDuration)
-    },
-    overtimeDuration (overtimeDuration) {
-      this.$emit('update:overtime-duration', overtimeDuration)
+    overtime (overtime) {
+      this.$emit('update:overtime', overtime)
     }
   }
 }
