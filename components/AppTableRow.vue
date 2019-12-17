@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>
+    <td :class="dateClass">
       {{ date | formatDate }}
     </td>
     <td>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { isSunday, isSaturday } from 'date-fns'
 import calcTimes from '~/modules/calcTimes'
 import formatDate from '~/modules/formatDate'
 import isHTMLTime from '~/modules/isHTMLTime'
@@ -36,7 +37,7 @@ export default {
   },
   filters: {
     formatDate (date) {
-      return formatDate(date, 'yyyy/M/d(EEEEE)')
+      return formatDate(date, 'M/d(EEEEE)')
     }
   },
   props: {
@@ -89,6 +90,18 @@ export default {
     },
     overtime () {
       return this.time.overtime
+    },
+    isSunday () {
+      return isSunday(this.date)
+    },
+    isSaturday () {
+      return isSaturday(this.date)
+    },
+    dateClass () {
+      return {
+        sunday: this.isSunday,
+        saturday: this.isSaturday
+      }
     }
   },
   watch: {
@@ -104,3 +117,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.sunday {
+  color: #f44336;
+}
+
+.saturday {
+  color: #2196f3;
+}
+</style>
