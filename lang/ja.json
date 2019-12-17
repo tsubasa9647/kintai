@@ -1,6 +1,12 @@
 {
   "APP_DESCRIPTION": "勤怠管理システム",
   "APP_NAME": "kintai",
+  "FOOTER_CREATOR_LABEL": "@munieru_jp",
+  "FOOTER_CREATOR_URL": "https://twitter.com/munieru_jp",
+  "FOOTER_CREATOR": "Created by {creator}",
+  "FOOTER_HOSTING_SITE_LABEL": "GitHub",
+  "FOOTER_HOSTING_SITE_URL": "https://github.com/munierujp/kintai",
+  "FOOTER_HOSTING_SITE": "Hosted on {site}",
   "HEADER_ACTUAL_WORKING_TIME": "実労働時間",
   "HEADER_BREAK_TIME": "休憩時間",
   "HEADER_DATE": "日付",

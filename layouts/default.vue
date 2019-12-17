@@ -6,11 +6,13 @@
         <nuxt />
       </v-container>
     </v-content>
+    <app-footer />
   </v-app>
 </template>
 
 <script>
 import AppHeader from '~/components/AppHeader'
+import AppFooter from '~/components/AppFooter'
 
 export default {
   head () {
@@ -26,7 +28,8 @@ export default {
     }
   },
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   }
 }
 </script>
