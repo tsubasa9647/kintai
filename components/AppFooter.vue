@@ -1,7 +1,8 @@
 <template>
   <v-footer
-    color="grey darken-4"
-    class="app-footer grey--text text--lighten-5"
+    color="primary"
+    dark
+    class="app-footer"
   >
     <v-spacer />
     <div>
