@@ -4,10 +4,7 @@
     align-center
   >
     <v-flex>
-      <app-table
-        :records="records"
-        :working-time-units="workingTimeUnits"
-      />
+      <app-table :records="records" />
     </v-flex>
   </v-layout>
 </template>
@@ -23,9 +20,6 @@ export default {
   },
   data () {
     return {
-      workingTimeUnits: {
-        minutes: 15
-      },
       records: []
     }
   },
@@ -73,10 +67,8 @@ function createDefaultRecords () {
       return {
         date,
         stayingTime: '',
-        breakTime: '01:00',
         actualWorkingTime: '',
         workingTime: '',
-        standardWorkingTime: '08:00',
         overtime: ''
       }
     })

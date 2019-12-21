@@ -1,30 +1,35 @@
 <template>
   <v-text-field
-    v-model="_value"
+    v-model.number="_value"
     :rules="rules"
     :label="label"
-    type="time"
+    :suffix="suffix"
+    type="number"
   />
 </template>
 
 <script>
-import isHTMLTime from '~/modules/isHTMLTime'
+import isNumber from '~/modules/isNumber'
 
 export default {
   props: {
     value: {
-      type: String,
+      type: Number,
       required: true
     },
     label: {
       type: String,
       required: true
+    },
+    suffix: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
       rules: [
-        value => isHTMLTime(value) || this.$t('ERROR_MESSAGE_NOT_TIME')
+        value => isNumber(value) || this.$t('ERROR_MESSAGE_NOT_NUMBER')
       ]
     }
   },
@@ -34,9 +39,11 @@ export default {
         return this.value
       },
       set (value) {
-        this.$emit('input', value)
+        const num = isNumber(value) ? value : 0
+        this.$emit('input', num)
       }
     }
   }
 }
+
 </script>

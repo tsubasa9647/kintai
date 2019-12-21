@@ -15,12 +15,9 @@
           <app-table-row
             :date="record.date"
             :staying-time.sync="record.stayingTime"
-            :break-time="record.breakTime"
             :actual-working-time.sync="record.actualWorkingTime"
             :working-time.sync="record.workingTime"
-            :standard-working-time="record.standardWorkingTime"
             :overtime.sync="record.overtime"
-            :working-time-units="workingTimeUnits"
           />
         </template>
       </tbody>
@@ -67,10 +64,6 @@ export default {
   props: {
     records: {
       type: Array,
-      required: true
-    },
-    workingTimeUnits: {
-      type: Object,
       required: true
     }
   },

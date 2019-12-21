@@ -4,7 +4,10 @@
       {{ date | formatDate }}
     </td>
     <td>
-      <app-input-time v-model="mutableStayingTime" />
+      <input
+        v-model="_stayingTime"
+        type="time"
+      >
     </td>
     <td>
       {{ breakTime }}
@@ -29,12 +32,8 @@ import { isSunday, isSaturday } from 'date-fns'
 import calcTimes from '~/modules/calcTimes'
 import formatDate from '~/modules/formatDate'
 import isHTMLTime from '~/modules/isHTMLTime'
-import AppInputTime from '~/components/AppInputTime'
 
 export default {
-  components: {
-    AppInputTime
-  },
   filters: {
     formatDate (date) {
       return formatDate(date, 'M/d(EEEEE)')
@@ -49,24 +48,27 @@ export default {
       type: String,
       required: true,
       validator: value => value === '' || isHTMLTime(value)
-    },
-    breakTime: {
-      type: String,
-      required: true,
-      validator: value => value === '' || isHTMLTime(value)
-    },
-    standardWorkingTime: {
-      type: String,
-      required: true,
-      validator: value => value === '' || isHTMLTime(value)
-    },
-    workingTimeUnits: {
-      type: Object,
-      required: true
     }
   },
   computed: {
-    mutableStayingTime: {
+    config () {
+      return this.$store.state.config
+    },
+    breakTime () {
+      return this.config.breakTime
+    },
+    standardWorkingTime () {
+      return this.config.standardWorkingTime
+    },
+    workingTimeUnit () {
+      return this.config.workingTimeUnit
+    },
+    workingTimeUnits () {
+      return {
+        minutes: this.workingTimeUnit
+      }
+    },
+    _stayingTime: {
       get () {
         return this.stayingTime
       },
@@ -76,7 +78,7 @@ export default {
     },
     time () {
       return calcTimes({
-        stayingTime: this.mutableStayingTime,
+        stayingTime: this._stayingTime,
         breakTime: this.breakTime,
         standardWorkingTime: this.standardWorkingTime,
         workingTimeUnits: this.workingTimeUnits
