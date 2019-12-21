@@ -29,6 +29,7 @@
 
 <script>
 import { isSunday, isSaturday } from 'date-fns'
+import { isHoliday } from '@holiday-jp/holiday_jp'
 import calcTimes from '~/modules/calcTimes'
 import formatDate from '~/modules/formatDate'
 import isHTMLTime from '~/modules/isHTMLTime'
@@ -99,10 +100,14 @@ export default {
     isSaturday () {
       return isSaturday(this.date)
     },
+    isHoliday () {
+      return isHoliday(this.date)
+    },
     dateClass () {
       return {
         sunday: this.isSunday,
-        saturday: this.isSaturday
+        saturday: this.isSaturday,
+        holiday: this.isHoliday
       }
     }
   },
@@ -128,4 +133,9 @@ export default {
 .saturday {
   color: #2196f3;
 }
+
+.holiday {
+  color: #f44336;
+}
+
 </style>
