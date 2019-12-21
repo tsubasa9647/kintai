@@ -55,11 +55,38 @@ export default {
     config () {
       return this.$store.state.config
     },
+    _stayingTime: {
+      get () {
+        return this.stayingTime
+      },
+      set (stayingTime) {
+        this.$emit('update:staying-time', stayingTime)
+      }
+    },
+    isWorkDay () {
+      return this._stayingTime !== ''
+    },
+    isSaturday () {
+      return isSaturday(this.date)
+    },
+    isSunday () {
+      return isSunday(this.date)
+    },
+    isHoliday () {
+      return isHoliday(this.date)
+    },
+    dateClass () {
+      return {
+        saturday: this.isSaturday,
+        sunday: this.isSunday,
+        holiday: this.isHoliday
+      }
+    },
     breakTime () {
-      return this.config.breakTime
+      return this.isWorkDay ? this.config.breakTime : ''
     },
     standardWorkingTime () {
-      return this.config.standardWorkingTime
+      return this.isWorkDay ? this.config.standardWorkingTime : ''
     },
     workingTimeUnit () {
       return this.config.workingTimeUnit
@@ -67,14 +94,6 @@ export default {
     workingTimeUnits () {
       return {
         minutes: this.workingTimeUnit
-      }
-    },
-    _stayingTime: {
-      get () {
-        return this.stayingTime
-      },
-      set (stayingTime) {
-        this.$emit('update:staying-time', stayingTime)
       }
     },
     time () {
@@ -93,22 +112,6 @@ export default {
     },
     overtime () {
       return this.time.overtime
-    },
-    isSunday () {
-      return isSunday(this.date)
-    },
-    isSaturday () {
-      return isSaturday(this.date)
-    },
-    isHoliday () {
-      return isHoliday(this.date)
-    },
-    dateClass () {
-      return {
-        sunday: this.isSunday,
-        saturday: this.isSaturday,
-        holiday: this.isHoliday
-      }
     }
   },
   watch: {
@@ -126,12 +129,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sunday {
-  color: #f44336;
-}
-
 .saturday {
   color: #2196f3;
+}
+
+.sunday {
+  color: #f44336;
 }
 
 .holiday {
