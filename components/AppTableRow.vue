@@ -10,16 +10,31 @@
       >
     </td>
     <td>
-      {{ breakTime }}
+      <input
+        v-model="_breakTime"
+        type="time"
+      >
     </td>
     <td>
       {{ actualWorkingTime }}
     </td>
     <td>
+      <input
+        v-model.number="_workingTimeUnit"
+        type="number"
+        min="0"
+        class="working-time-unit"
+      >
+      {{ $t('WORKING_TIME_UNIT_SUFFIX') }}
+    </td>
+    <td>
       {{ workingTime }}
     </td>
     <td>
-      {{ standardWorkingTime }}
+      <input
+        v-model="_standardWorkingTime"
+        type="time"
+      >
     </td>
     <td>
       {{ overtime }}
@@ -33,6 +48,7 @@ import { isHoliday } from '@holiday-jp/holiday_jp'
 import calcTimes from '~/modules/calcTimes'
 import formatDate from '~/modules/formatDate'
 import isHTMLTime from '~/modules/isHTMLTime'
+import isNumber from '~/modules/isNumber'
 
 export default {
   filters: {
@@ -49,12 +65,23 @@ export default {
       type: String,
       required: true,
       validator: value => value === '' || isHTMLTime(value)
+    },
+    breakTime: {
+      type: String,
+      required: true,
+      validator: value => value === '' || isHTMLTime(value)
+    },
+    workingTimeUnit: {
+      type: Number,
+      required: true
+    },
+    standardWorkingTime: {
+      type: String,
+      required: true,
+      validator: value => value === '' || isHTMLTime(value)
     }
   },
   computed: {
-    config () {
-      return this.$store.state.config
-    },
     _stayingTime: {
       get () {
         return this.stayingTime
@@ -62,6 +89,34 @@ export default {
       set (stayingTime) {
         this.$emit('update:staying-time', stayingTime)
       }
+    },
+    _breakTime: {
+      get () {
+        return this.breakTime
+      },
+      set (breakTime) {
+        this.$emit('update:break-time', breakTime)
+      }
+    },
+    _workingTimeUnit: {
+      get () {
+        return this.workingTimeUnit
+      },
+      set (workingTimeUnit) {
+        const num = isNumber(workingTimeUnit) ? workingTimeUnit : 0
+        this.$emit('update:working-time-unit', num)
+      }
+    },
+    _standardWorkingTime: {
+      get () {
+        return this.standardWorkingTime
+      },
+      set (standardWorkingTime) {
+        this.$emit('update:standard-working-time', standardWorkingTime)
+      }
+    },
+    config () {
+      return this.$store.state.config
     },
     isWorkDay () {
       return this._stayingTime !== ''
@@ -82,25 +137,16 @@ export default {
         holiday: this.isHoliday
       }
     },
-    breakTime () {
-      return this.isWorkDay ? this.config.breakTime : ''
-    },
-    standardWorkingTime () {
-      return this.isWorkDay ? this.config.standardWorkingTime : ''
-    },
-    workingTimeUnit () {
-      return this.config.workingTimeUnit
-    },
     workingTimeUnits () {
       return {
-        minutes: this.workingTimeUnit
+        minutes: this._workingTimeUnit
       }
     },
     time () {
       return calcTimes({
         stayingTime: this._stayingTime,
-        breakTime: this.breakTime,
-        standardWorkingTime: this.standardWorkingTime,
+        breakTime: this._breakTime,
+        standardWorkingTime: this._standardWorkingTime,
         workingTimeUnits: this.workingTimeUnits
       })
     },
@@ -141,4 +187,7 @@ export default {
   color: #f44336;
 }
 
+.working-time-unit {
+  width: 30px;
+}
 </style>

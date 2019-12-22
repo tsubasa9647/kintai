@@ -4,6 +4,7 @@
     :rules="rules"
     :label="label"
     :suffix="suffix"
+    :min="min"
     type="number"
   />
 </template>
@@ -16,6 +17,10 @@ export default {
     value: {
       type: Number,
       required: true
+    },
+    min: {
+      type: Number,
+      default: 0
     },
     label: {
       type: String,

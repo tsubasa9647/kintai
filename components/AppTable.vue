@@ -15,8 +15,11 @@
           <app-table-row
             :date="record.date"
             :staying-time.sync="record.stayingTime"
+            :break-time.sync="record.breakTime"
             :actual-working-time.sync="record.actualWorkingTime"
+            :working-time-unit.sync="record.workingTimeUnit"
             :working-time.sync="record.workingTime"
+            :standard-working-time.sync="record.standardWorkingTime"
             :overtime.sync="record.overtime"
           />
         </template>
@@ -33,6 +36,7 @@
           <td>
             {{ actualWorkingTimeDuration | formatDuration }}
           </td>
+          <td />
           <td>
             {{ workingTimeDuration | formatDuration }}
           </td>
@@ -85,6 +89,10 @@ export default {
         {
           key: 'actual_working_time',
           i18n: 'HEADER_ACTUAL_WORKING_TIME'
+        },
+        {
+          key: 'working_time_unit',
+          i18n: 'HEADER_WORKING_TIME_UNIT'
         },
         {
           key: 'working_time',

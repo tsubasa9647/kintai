@@ -5,7 +5,7 @@
         <v-col>
           <app-input-time
             v-model="_breakTime"
-            :label="$t('BREAK_TIME')"
+            :label="$t('DEFAULT_BREAK_TIME')"
           />
         </v-col>
       </v-row>
@@ -13,7 +13,7 @@
         <v-col>
           <app-input-time
             v-model="_standardWorkingTime"
-            :label="$t('STANDARD_WORKING_TIME')"
+            :label="$t('DEFAULT_STANDARD_WORKING_TIME')"
           />
         </v-col>
       </v-row>
@@ -21,8 +21,8 @@
         <v-col>
           <app-input-number
             v-model="_workingTimeUnit"
-            :label="$t('WORKING_TIME_UNIT')"
-            :suffix="$t('WORKING_TIME_UNIT_SUFFIX')"
+            :label="$t('DEFAULT_WORKING_TIME_UNIT')"
+            :suffix="$t('DEFAULT_WORKING_TIME_UNIT_SUFFIX')"
           />
         </v-col>
       </v-row>
