@@ -22,7 +22,7 @@
           <app-input-number
             v-model="_workingTimeUnit"
             :label="$t('DEFAULT_WORKING_TIME_UNIT')"
-            :suffix="$t('DEFAULT_WORKING_TIME_UNIT_SUFFIX')"
+            :suffix="$t('MINUTES')"
           />
         </v-col>
       </v-row>

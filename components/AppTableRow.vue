@@ -25,7 +25,7 @@
         min="0"
         class="working-time-unit"
       >
-      {{ $t('WORKING_TIME_UNIT_SUFFIX') }}
+      {{ $t('MINUTES') }}
     </td>
     <td>
       {{ workingTime }}

@@ -3,7 +3,6 @@
   "APP_NAME": "kintai",
   "DEFAULT_BREAK_TIME": "デフォルトの休憩時間",
   "DEFAULT_STANDARD_WORKING_TIME": "デフォルトの所定労働時間",
-  "DEFAULT_WORKING_TIME_UNIT_SUFFIX": "分",
   "DEFAULT_WORKING_TIME_UNIT": "デフォルトの労働時間の単位",
   "ERROR_MESSAGE_NOT_NUMBER": "数字を入力してください。",
   "ERROR_MESSAGE_NOT_TIME": "時間を入力してください。",
@@ -19,9 +18,9 @@
   "HEADER_OVERTIME": "残業時間",
   "HEADER_STANDARD_WORKING_TIME": "所定労働時間",
   "HEADER_STAYING_TIME": "滞在時間",
-  "HEADER_WORKING_TIME": "労働時間",
   "HEADER_WORKING_TIME_UNIT": "労働時間の単位",
+  "HEADER_WORKING_TIME": "労働時間",
+  "MINUTES": "分",
   "SETTING": "設定",
-  "TOTAL": "合計",
-  "WORKING_TIME_UNIT_SUFFIX": "分"
+  "TOTAL": "合計"
 }
