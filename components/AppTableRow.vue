@@ -45,10 +45,12 @@
 <script>
 import { isSunday, isSaturday } from 'date-fns'
 import { isHoliday } from '@holiday-jp/holiday_jp'
-import calcTimes from '~/modules/calcTimes'
+import floorDuration from '~/modules/floorDuration'
 import formatDate from '~/modules/formatDate'
+import formatDuration from '~/modules/formatDuration'
 import isHTMLTime from '~/modules/isHTMLTime'
 import isNumber from '~/modules/isNumber'
+import parseDuration from '~/modules/parseDuration'
 
 export default {
   filters: {
@@ -71,55 +73,81 @@ export default {
       required: true,
       validator: value => value === '' || isHTMLTime(value)
     },
-    workingTimeUnit: {
-      type: Number,
-      required: true
-    },
     standardWorkingTime: {
       type: String,
       required: true,
       validator: value => value === '' || isHTMLTime(value)
+    },
+    workingTimeUnit: {
+      type: [Number, String], // NOTE: String is type for empty value
+      required: true
     }
   },
   computed: {
+    config () {
+      return this.$store.state.config
+    },
     _stayingTime: {
       get () {
         return this.stayingTime
       },
-      set (stayingTime) {
-        this.$emit('update:staying-time', stayingTime)
+      set (value) {
+        this.$emit('update:staying-time', value)
       }
     },
     _breakTime: {
       get () {
         return this.breakTime
       },
-      set (breakTime) {
-        this.$emit('update:break-time', breakTime)
-      }
-    },
-    _workingTimeUnit: {
-      get () {
-        return this.workingTimeUnit
-      },
-      set (workingTimeUnit) {
-        const num = isNumber(workingTimeUnit) ? workingTimeUnit : 0
-        this.$emit('update:working-time-unit', num)
+      set (value) {
+        this.$emit('update:break-time', value)
       }
     },
     _standardWorkingTime: {
       get () {
         return this.standardWorkingTime
       },
-      set (standardWorkingTime) {
-        this.$emit('update:standard-working-time', standardWorkingTime)
+      set (value) {
+        this.$emit('update:standard-working-time', value)
       }
     },
-    config () {
-      return this.$store.state.config
+    _workingTimeUnit: {
+      get () {
+        return this.workingTimeUnit
+      },
+      set (value) {
+        const num = isNumber(value) ? value : 0
+        this.$emit('update:working-time-unit', num)
+      }
     },
-    isWorkDay () {
-      return this._stayingTime !== ''
+    stayingTimeDuration () {
+      return parseDuration(this._stayingTime)
+    },
+    breakTimeDuration () {
+      return parseDuration(this._breakTime)
+    },
+    actualWorkingTimeDuration () {
+      return this.stayingTimeDuration.minus(this.breakTimeDuration)
+    },
+    actualWorkingTime () {
+      return toHTMLTime(this.actualWorkingTimeDuration)
+    },
+    workingTimeDuration () {
+      return floorDuration(this.actualWorkingTimeDuration, {
+        minutes: this._workingTimeUnit
+      })
+    },
+    workingTime () {
+      return toHTMLTime(this.workingTimeDuration)
+    },
+    standardWorkingTimeDuration () {
+      return parseDuration(this._standardWorkingTime)
+    },
+    overtimeDuration () {
+      return this.workingTimeDuration.minus(this.standardWorkingTimeDuration)
+    },
+    overtime () {
+      return toHTMLTime(this.overtimeDuration)
     },
     isSaturday () {
       return isSaturday(this.date)
@@ -136,41 +164,37 @@ export default {
         sunday: this.isSunday,
         holiday: this.isHoliday
       }
-    },
-    workingTimeUnits () {
-      return {
-        minutes: this._workingTimeUnit
-      }
-    },
-    time () {
-      return calcTimes({
-        stayingTime: this._stayingTime,
-        breakTime: this._breakTime,
-        standardWorkingTime: this._standardWorkingTime,
-        workingTimeUnits: this.workingTimeUnits
-      })
-    },
-    actualWorkingTime () {
-      return this.time.actualWorkingTime
-    },
-    workingTime () {
-      return this.time.workingTime
-    },
-    overtime () {
-      return this.time.overtime
     }
   },
   watch: {
-    actualWorkingTime (actualWorkingTime) {
-      this.$emit('update:actual-working-time', actualWorkingTime)
+    _stayingTime (newValue, oldValue) {
+      // set default values
+      if (!oldValue && newValue) {
+        this._breakTime = this.config.breakTime
+        this._workingTimeUnit = this.config.workingTimeUnit
+        this._standardWorkingTime = this.config.standardWorkingTime
+      }
+      // clear values
+      if (oldValue && !newValue) {
+        this._breakTime = ''
+        this._workingTimeUnit = ''
+        this._standardWorkingTime = ''
+      }
     },
-    workingTime (workingTime) {
-      this.$emit('update:working-time', workingTime)
+    actualWorkingTime (value) {
+      this.$emit('update:actual-working-time', value)
     },
-    overtime (overtime) {
-      this.$emit('update:overtime', overtime)
+    workingTime (value) {
+      this.$emit('update:working-time', value)
+    },
+    overtime (value) {
+      this.$emit('update:overtime', value)
     }
   }
+}
+
+function toHTMLTime (duration) {
+  return duration.isValid ? formatDuration(duration, 'hh:mm') : ''
 }
 </script>
 

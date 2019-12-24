@@ -127,6 +127,7 @@ export default {
     sumDurations (key) {
       const durations = this.records
         .map(record => record[key])
+        .filter(value => value)
         .map(parseDuration)
         .filter(duration => duration.isValid)
       return sumDurations(...durations)

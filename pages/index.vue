@@ -56,18 +56,17 @@ export default {
       return records.length ? records : this.createDefaultRecords()
     },
     createDefaultRecords () {
-      const { breakTime, standardWorkingTime, workingTimeUnit } = this.config
       const dates = getDatesOfCurrentMonth()
       return dates
         .map((date) => {
           return {
             date,
             stayingTime: '',
-            breakTime,
+            breakTime: '',
             actualWorkingTime: '',
-            workingTimeUnit,
+            workingTimeUnit: '',
             workingTime: '',
-            standardWorkingTime,
+            standardWorkingTime: '',
             overtime: ''
           }
         })
