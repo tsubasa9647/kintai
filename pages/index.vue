@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { startOfMonth, endOfMonth } from 'date-fns'
-import getDatesOfCurrentMonth from '~/modules/getDatesOfCurrentMonth'
+import { eachDayOfInterval, startOfMonth, endOfMonth } from 'date-fns'
+import newDate from '~/modules/newDate'
 import AppTable from '~/components/AppTable'
 
 export default {
@@ -24,6 +24,24 @@ export default {
     }
   },
   computed: {
+    query () {
+      return this.$route.query
+    },
+    date () {
+      if (this.query.month) {
+        const year = Number(this.query.month.substr(0, 4))
+        const month = Number(this.query.month.substr(4, 2))
+        return newDate({ year, month })
+      } else {
+        return new Date()
+      }
+    },
+    startDate () {
+      return startOfMonth(this.date)
+    },
+    endDate () {
+      return endOfMonth(this.date)
+    },
     state () {
       return this.$store.state
     },
@@ -50,16 +68,22 @@ export default {
   },
   methods: {
     async getRecordsOrCreate () {
-      const now = new Date()
+      const records = await this.getRecords()
+      return records.length ? records : this.createRecords()
+    },
+    async getRecords () {
       const records = await this.db.getRecordsByRange('times', {
         key: 'date',
-        lower: startOfMonth(now),
-        upper: endOfMonth(now)
+        lower: this.startDate,
+        upper: this.endDate
       })
-      return records.length ? records : this.createDefaultRecords()
+      return records
     },
-    createDefaultRecords () {
-      const dates = getDatesOfCurrentMonth()
+    createRecords () {
+      const dates = eachDayOfInterval({
+        start: this.startDate,
+        end: this.endDate
+      })
       return dates
         .map((date) => {
           return {
