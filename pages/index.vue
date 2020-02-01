@@ -24,11 +24,14 @@ export default {
     }
   },
   computed: {
+    state () {
+      return this.$store.state
+    },
     db () {
-      return this.$store.state.db
+      return this.state.db
     },
     config () {
-      return this.$store.state.config
+      return this.state.config
     }
   },
   watch: {

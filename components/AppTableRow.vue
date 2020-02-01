@@ -84,8 +84,11 @@ export default {
     }
   },
   computed: {
+    state () {
+      return this.$store.state
+    },
     config () {
-      return this.$store.state.config
+      return this.state.config
     },
     _stayingTime: {
       get () {
