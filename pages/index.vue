@@ -21,7 +21,14 @@
 </template>
 
 <script>
-import { eachDayOfInterval, startOfMonth, endOfMonth, addMonths, subMonths } from 'date-fns'
+import {
+  eachDayOfInterval,
+  startOfMonth,
+  endOfMonth,
+  addMonths,
+  subMonths,
+  isSameDay
+} from 'date-fns'
 import clearArray from '~/modules/clearArray'
 import createDateFromYearMonthString from '~/modules/createDateFromYearMonthString'
 import formatDate from '~/modules/formatDate'
@@ -91,8 +98,13 @@ export default {
   },
   methods: {
     async getRecordsOrCreate () {
-      const records = await this.getRecords()
-      return records.length ? records : this.createRecords()
+      const oldRecords = await this.getRecords()
+      const newRecords = this.createRecords()
+      const records = newRecords.map((newRecord) => {
+        const oldRecord = oldRecords.find(oldRecord => isSameDay(oldRecord.date, newRecord.date))
+        return oldRecord || newRecord
+      })
+      return records
     },
     async getRecords () {
       const records = await this.db.getRecordsByRange('times', {
