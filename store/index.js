@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
-import Database from '~/modules/database'
 import defaultConfig from '~/modules/defaultConfig'
+import Database from '~/modules/database'
+import { TimeRepository } from '~/interface/database/'
 
 const CONFIG_KEY = 'config'
 
@@ -14,25 +15,29 @@ export default function () {
       }
     ],
     state: () => ({
-      db: null,
-      config: loadConfig() || defaultConfig
+      config: loadConfig() || defaultConfig,
+      repository: {}
     }),
     mutations: {
-      setDb (state, db) {
-        state.db = db
-      },
       setConfig (state, config) {
         state.config = config
+      },
+      setRepository (state, repository) {
+        state.repository = repository
       }
     },
     actions: {
       async nuxtClientInit ({ dispatch }) {
-        await dispatch('initializeDB')
+        await dispatch('initializeRepository')
       },
-      async initializeDB ({ commit }) {
+      async initializeRepository ({ commit }) {
         const db = new Database(indexedDB)
         await db.initialize()
-        commit('setDb', db)
+        const time = new TimeRepository(db)
+        const repository = {
+          time
+        }
+        commit('setRepository', repository)
       },
       updateConfig ({ commit }, config) {
         commit('setConfig', config)

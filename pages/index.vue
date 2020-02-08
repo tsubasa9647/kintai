@@ -54,6 +54,12 @@ export default {
     }
   },
   computed: {
+    state () {
+      return this.$store.state
+    },
+    timeRepo () {
+      return this.state.repository.time
+    },
     startDate () {
       return startOfMonth(this.date)
     },
@@ -69,12 +75,6 @@ export default {
       const date = addMonths(this.date, 1)
       const month = formatDate(date, 'yyyyMM')
       return `/?month=${month}`
-    },
-    state () {
-      return this.$store.state
-    },
-    db () {
-      return this.state.db
     }
   },
   watch: {
@@ -107,11 +107,7 @@ export default {
       return records
     },
     async getRecords () {
-      const records = await this.db.getRecordsByRange('times', {
-        key: 'date',
-        lower: this.startDate,
-        upper: this.endDate
-      })
+      const records = await this.timeRepo.getByDateRange(this.startDate, this.endDate)
       return records
     },
     createRecords () {
@@ -133,7 +129,7 @@ export default {
     },
     async saveRecords (records) {
       for (const record of records) {
-        await this.db.putRecord('times', record)
+        await this.timeRepo.put(record)
       }
     }
   }
