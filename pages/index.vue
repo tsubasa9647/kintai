@@ -4,15 +4,7 @@
     align-center
   >
     <v-flex>
-      <app-icon-link
-        :to="prevPagePath"
-        :icon="icons.left"
-      />
       <span>{{ date | formatDate }}</span>
-      <app-icon-link
-        :to="nextPagePath"
-        :icon="icons.right"
-      />
     </v-flex>
     <v-flex>
       <app-table :records="records" />
@@ -21,19 +13,14 @@
 </template>
 
 <script>
-import {
-  eachDayOfInterval,
-  startOfMonth,
-  endOfMonth,
-  addMonths,
-  subMonths,
-  isSameDay
-} from 'date-fns'
 import clearArray from '~/modules/clearArray'
 import createDateFromYearMonthString from '~/modules/createDateFromYearMonthString'
+import endOfMonth from '~/modules/endOfMonth'
 import formatDate from '~/modules/formatDate'
+import getDatesOfRange from '~/modules/getDatesOfRange'
 import icons from '~/modules/icons'
-import AppIconLink from '~/components/AppIconLink'
+import isSameDay from '~/modules/isSameDay'
+import startOfMonth from '~/modules/startOfMonth'
 import AppTable from '~/components/AppTable'
 
 export default {
@@ -43,7 +30,6 @@ export default {
     }
   },
   components: {
-    AppIconLink,
     AppTable
   },
   data () {
@@ -65,16 +51,6 @@ export default {
     },
     endDate () {
       return endOfMonth(this.date)
-    },
-    prevPagePath () {
-      const date = subMonths(this.date, 1)
-      const month = formatDate(date, 'yyyyMM')
-      return `/?month=${month}`
-    },
-    nextPagePath () {
-      const date = addMonths(this.date, 1)
-      const month = formatDate(date, 'yyyyMM')
-      return `/?month=${month}`
     }
   },
   watch: {
@@ -111,10 +87,7 @@ export default {
       return records
     },
     createRecords () {
-      const dates = eachDayOfInterval({
-        start: this.startDate,
-        end: this.endDate
-      })
+      const dates = getDatesOfRange(this.startDate, this.endDate)
       return dates
         .map(date => ({
           date,

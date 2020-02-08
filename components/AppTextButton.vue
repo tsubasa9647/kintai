@@ -1,20 +1,22 @@
 <template>
   <v-btn
+    :disabled="disabled"
     :color="color"
     @click="click"
     text
+    outlined
     class="app-text-button"
   >
-    {{ label }}
+    <slot />
   </v-btn>
 </template>
 
 <script>
 export default {
   props: {
-    label: {
-      type: String,
-      required: true
+    disabled: {
+      type: Boolean,
+      default: false
     },
     color: {
       type: String,

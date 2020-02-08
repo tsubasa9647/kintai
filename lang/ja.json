@@ -1,6 +1,7 @@
 {
   "APP_DESCRIPTION": "勤怠管理システム",
   "APP_NAME": "kintai",
+  "CURRENT_MONTH": "今月",
   "DEFAULT_BREAK_TIME": "デフォルトの休憩時間",
   "DEFAULT_STANDARD_WORKING_TIME": "デフォルトの所定労働時間",
   "DEFAULT_WORKING_TIME_UNIT": "デフォルトの労働時間の単位",

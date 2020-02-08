@@ -5,17 +5,17 @@
         color="primary"
         dark
       >
-        <app-icon-button
-          :icon="icons.close"
-          @click="onClickCloseButton"
-        />
+        <app-icon-button @click="onClickCloseButton">
+          {{ icons.close }}
+        </app-icon-button>
         <v-toolbar-title>{{ $t('SETTING') }}</v-toolbar-title>
         <v-spacer />
         <app-icon-button
-          @click="onClickSaveIcon"
-          :icon="icons.save"
           :disabled="!valid"
-        />
+          @click="onClickSaveIcon"
+        >
+          {{ icons.save }}
+        </app-icon-button>
       </v-toolbar>
       <v-card-text>
         <app-setting-form
