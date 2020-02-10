@@ -15,7 +15,12 @@ export default {
       { hid: 'description', name: 'description', content: APP_DESCRIPTION }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/png', href: '/icon-1024x1024.png', sizes: '1024x1024' },
+      { rel: 'icon', type: 'image/png', href: '/icon-512x512.png', sizes: '512x512' },
+      { rel: 'icon', type: 'image/png', href: '/icon-256x256.png', sizes: '256x256' },
+      { rel: 'icon', type: 'image/png', href: '/android-chrome-192x192.png', sizes: '192x192' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png', sizes: '180x180' }
     ]
   },
   /*
