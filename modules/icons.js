@@ -6,5 +6,5 @@ export default {
   left: 'mdi-chevron-left',
   right: 'mdi-chevron-right',
   save: 'mdi-content-save',
-  settings: 'mdi-settings'
+  settings: 'mdi-cog'
 }
