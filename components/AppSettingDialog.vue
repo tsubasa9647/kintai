@@ -30,7 +30,9 @@
 </template>
 
 <script>
-import icons from '~/modules/icons'
+import {
+  icons
+} from '~/modules'
 import AppFullscreenDialog from '~/components/AppFullscreenDialog'
 import AppIconButton from '~/components/AppIconButton'
 import AppSettingForm from '~/components/AppSettingForm'

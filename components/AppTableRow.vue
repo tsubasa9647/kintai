@@ -34,15 +34,17 @@
 </template>
 
 <script>
-import floorDuration from '~/modules/floorDuration'
-import formatDate from '~/modules/formatDate'
-import formatDuration from '~/modules/formatDuration'
-import isHoliday from '~/modules/isHoliday'
-import isHTMLTime from '~/modules/isHTMLTime'
-import isNumber from '~/modules/isNumber'
-import isSaturday from '~/modules/isSaturday'
-import isSunday from '~/modules/isSunday'
-import parseDuration from '~/modules/parseDuration'
+import {
+  floorDuration,
+  formatDate,
+  formatDuration,
+  isHoliday,
+  isHTMLTime,
+  isNumber,
+  isSaturday,
+  isSunday,
+  parseDuration
+} from '~/modules'
 import AppTableRowInputTime from '~/components/AppTableRowInputTime'
 
 export default {

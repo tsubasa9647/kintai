@@ -51,9 +51,11 @@
 </template>
 
 <script>
-import formatDuration from '~/modules/formatDuration'
-import parseDuration from '~/modules/parseDuration'
-import sumDurations from '~/modules/sumDurations'
+import {
+  formatDuration,
+  parseDuration,
+  sumDurations
+} from '~/modules'
 import AppTableRow from '~/components/AppTableRow'
 
 export default {

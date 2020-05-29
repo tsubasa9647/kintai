@@ -10,7 +10,9 @@
 </template>
 
 <script>
-import isNumber from '~/modules/isNumber'
+import {
+  isNumber
+} from '~/modules'
 
 export default {
   props: {

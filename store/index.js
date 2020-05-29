@@ -1,6 +1,8 @@
 import Vuex from 'vuex'
-import defaultConfig from '~/modules/defaultConfig'
-import Database from '~/modules/database'
+import {
+  Database,
+  defaultConfig
+} from '~/modules'
 import { TimeRepository } from '~/interface/database/'
 
 const CONFIG_KEY = 'config'

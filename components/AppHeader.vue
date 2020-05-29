@@ -25,11 +25,13 @@
 </template>
 
 <script>
-import addMonth from '~/modules/addMonth'
-import createDateFromYearMonthString from '~/modules/createDateFromYearMonthString'
-import formatDate from '~/modules/formatDate'
-import icons from '~/modules/icons'
-import subMonth from '~/modules/subMonth'
+import {
+  addMonth,
+  createDateFromYearMonthString,
+  formatDate,
+  icons,
+  subMonth
+} from '~/modules'
 import AppIconButton from '~/components/AppIconButton'
 import AppTextButton from '~/components/AppTextButton'
 import AppSettingDialog from '~/components/AppSettingDialog'

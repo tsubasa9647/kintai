@@ -8,7 +8,9 @@
 </template>
 
 <script>
-import isHTMLTime from '~/modules/isHTMLTime'
+import {
+  isHTMLTime
+} from '~/modules'
 
 export default {
   props: {

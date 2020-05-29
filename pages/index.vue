@@ -13,14 +13,16 @@
 </template>
 
 <script>
-import clearArray from '~/modules/clearArray'
-import createDateFromYearMonthString from '~/modules/createDateFromYearMonthString'
-import endOfMonth from '~/modules/endOfMonth'
-import formatDate from '~/modules/formatDate'
-import getDatesOfRange from '~/modules/getDatesOfRange'
-import icons from '~/modules/icons'
-import isSameDay from '~/modules/isSameDay'
-import startOfMonth from '~/modules/startOfMonth'
+import {
+  clearArray,
+  createDateFromYearMonthString,
+  endOfMonth,
+  formatDate,
+  getDatesOfRange,
+  icons,
+  isSameDay,
+  startOfMonth
+} from '~/modules'
 import AppTable from '~/components/AppTable'
 
 export default {
