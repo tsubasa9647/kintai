@@ -36,7 +36,7 @@
     "husky": "2.7.0",
     "lint-staged": "8.2.1",
     "luxon": "1.25.0",
-    "node-sass": "4.14.1",
+    "node-sass": "5.0.0",
     "nuxt-client-init-module": "0.1.9",
     "nuxt-i18n": "6.15.4",
     "sass-loader": "8.0.2",
