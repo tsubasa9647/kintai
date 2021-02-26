@@ -35,7 +35,7 @@
     "eslint-plugin-nuxt": "2.0.0",
     "husky": "2.7.0",
     "lint-staged": "8.2.1",
-    "luxon": "1.25.0",
+    "luxon": "1.26.0",
     "node-sass": "5.0.0",
     "nuxt-client-init-module": "0.2.0",
     "nuxt-i18n": "6.20.0",
