@@ -40,7 +40,7 @@
     "nuxt-client-init-module": "0.3.0",
     "nuxt-i18n": "6.21.1",
     "sass-loader": "8.0.2",
-    "stylelint": "10.1.0",
+    "stylelint": "13.0.0",
     "stylelint-config-standard": "19.0.0",
     "stylelint-scss": "3.19.0"
   }
